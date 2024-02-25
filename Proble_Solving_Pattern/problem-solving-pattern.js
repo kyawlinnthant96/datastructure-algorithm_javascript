@@ -41,4 +41,28 @@ function refactorSame(arr1, arr2) {
   return true;
 }
 
-refactorSame([1, 2, 3, 3], [1, 4, 9, 3]);
+// console.log(refactorSame([1, 2, 3, 3], [1, 4, 9, 9]));
+
+const validAnagram = (first, last) => {
+  if (first.length !== last.length) {
+    return false;
+  }
+
+  const lookUp = {};
+
+  for (let i = 0; i < first.length; i++) {
+    const letter = first[i];
+    lookUp[letter] ? (lookUp[letter] += 1) : (lookUp[letter] = 1);
+  }
+  for (let i = 0; i < last.length; i++) {
+    const letter = last[i];
+    if (!lookUp[letter]) {
+      return false;
+    } else {
+      lookUp[letter] -= 1;
+    }
+  }
+  return true;
+};
+
+console.log(validAnagram("apple", "ppale"));
