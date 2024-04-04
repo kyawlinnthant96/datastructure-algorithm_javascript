@@ -117,4 +117,102 @@ const checkPrimea = (targetNum) => {
   return primeArray;
 };
 
-console.log(checkPrimea(1000));
+function isInfinitive(word) {
+  const verbConjugations = new Map([
+    ["s", ""],
+    ["es", ""],
+    ["ing", "e"],
+    ["ed", ""],
+  ]);
+
+  for (const [suffix, isInfinitive] of verbConjugations) {
+    if (word?.endWith(suffix)) {
+      return word.slice(0, -suffix.length) + infinitiveSuffix;
+    }
+  }
+
+  return word;
+}
+
+// const testWord = isInfinitive("working");
+// console.log(testWord);
+
+// behind the scence of array index
+// LOC(LA[i]) = Base(IA) + w * (i - lower bound)
+
+// sample array in memory address caculation
+// 0 | 10 | 1000
+// 1 | 20 | 1004
+// 2 | 30 | 1008
+// 3 | 40 | 1012
+// 4 | 50 | 1016
+
+// LOC(arr[3]) = Base(arr) + 4 * (3 - 0) = 1000 + 4 * 3 = 1012
+
+// LOC(arr[4]) = Base(arr) + 4 * ( 4 - 0 ) = 1000 + 4 * 4 = 1016
+
+// multi-dimensional array memory address picking
+
+/* 
+    0   1   2   3   4
+0  10   20  30  40  50
+1  60   70  80` 90  100
+2  110  120 130 140 150
+
+lc = column of lower bound
+lr = row of lower bound
+w = number bytes
+LOC(A(R,C)) = Base(A) + w[N * (R-Lr) + (C-Lc)]
+LOC(A(1,3)) = 10 + 4 * ( 5 * (1 - 0) + ( 3 - 0 )) = 10 + 4 * 20 = 90
+
+const inde = lb
+for (let i = 0; i <= ub; i++ ) {
+  index = index + 1
+}
+let income =[20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41];
+length = ub - lb + 1 = 2022 - 2000 + 1 = 23
+let output= []
+let initialYear = 2000
+for (i = 0; i <= length; i++ ) {
+  output.push(`${initialYear + i}:${1,000,000}`);
+}
+*/
+const findMin = (arr) => {
+  let min = arr[0];
+  for (let i = 0; i <= arr.length; i++) {
+    if (min > arr[i]) {
+      min = arr[i];
+    }
+  }
+  return min;
+};
+
+const sort = (arr) => {
+  const len = arr.length; // [2,3,5,6,4,1]
+  for (let i = 0; i <= len; i++) {
+    // i = 0; 0 <= 6; 0++
+    for (let j = 0; j <= len - i - 1; j++) {
+      // j = 0; 0 <= 6 - 0 - 1; 0++
+      // j = 1; 1 <= 6 - 1 - 1; 1++
+      // j = 2; 2 <= 6 - 2 - 1; 2++
+      // j = 3; 3 <= 6 - 3 - 1; 3++
+      // j = 4; 4 <= 6 - 4 - 1; 4++
+      // j = 5; 5 <= 6 - 5 - 1; 5++
+      // j = 6; 6 <= 6 - 6 - 1; 6++
+      if (arr[j] > arr[j + 1]) {
+        // (arr[3] = 6 > arr[3+1] = 4)
+        const temp = arr[j]; // 6
+        arr[j] = arr[j + 1]; // arr[3] = 6 = arr[3 + 1] = 4
+        arr[j + 1] = temp; // arr[3 + 1] = 6
+      }
+    }
+  }
+  return arr;
+};
+
+let arr = [2, 3, 4, 5, 1];
+console.log(
+  arr.sort(function (a, b) {
+    return b - a;
+  })
+);
